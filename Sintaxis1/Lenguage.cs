@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sintaxis1
 {
-    class Lenguage
+    class Lenguage:Sintaxis
     {
     }
 }
