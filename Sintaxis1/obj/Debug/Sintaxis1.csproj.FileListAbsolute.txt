@@ -1,0 +1,7 @@
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\bin\Debug\Sintaxis1.exe.config
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\bin\Debug\Sintaxis1.exe
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\bin\Debug\Sintaxis1.pdb
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\obj\Debug\Sintaxis1.csprojAssemblyReference.cache
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\obj\Debug\Sintaxis1.csproj.CoreCompileInputs.cache
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\obj\Debug\Sintaxis1.exe
+C:\Users\djime\Documents\GitHub\Sintaxis1_6V\Sintaxis1\obj\Debug\Sintaxis1.pdb
