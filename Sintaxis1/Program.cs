@@ -12,19 +12,13 @@ namespace Sintaxis1
         {
             try
             {
-                using (Lenguage l = new Lenguage())
+                using (Lenguaje l = new Lenguaje("C:\\Archivos\\Suma.txt"))
                 {
                     /*while (!l.FinArchivo())
                     {
                         l.NextToken();
                     }*/
-                    l.match("#");
-                    l.match("include");
-                    l.match("<");
-                    l.match(Token.Clasificaciones.Identificador);
-                    l.match(".");
-                    l.match("h");
-                    l.match(">");
+                    l.Programa();
                 }
             }
             catch (Exception e)

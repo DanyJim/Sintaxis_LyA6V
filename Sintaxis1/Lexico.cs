@@ -58,10 +58,9 @@ namespace Sintaxis1
         public Lexico()
         {
             Console.WriteLine("Compilando el archivo Prueba.txt...");
+            Console.WriteLine("Inicia analisis lexico");
             if (File.Exists("C:\\Archivos\\Prueba.txt"))
             {
-                //string fecha = 
-                //string hora = ;
                 linea = caracter = 1;
                 archivo = new StreamReader("C:\\Archivos\\Prueba.txt");
                 bitacora = new StreamWriter("C:\\Archivos\\Prueba.log");
@@ -75,18 +74,37 @@ namespace Sintaxis1
                 throw new Exception("El archivo Prueba.txt no existe");
             }
         }
+        public Lexico(string nombre)
+        {
+            Console.WriteLine("Compilando el archivo "+nombre);
+            Console.WriteLine("Inicia analisis lexico");
+            if (File.Exists(nombre))
+            {
+                linea = caracter = 1;
+                archivo = new StreamReader(nombre);
+                bitacora = new StreamWriter(Path.ChangeExtension(nombre,"log"));
+                bitacora.AutoFlush = true;
+                bitacora.WriteLine("Archivo: "+nombre);
+                bitacora.WriteLine("Directorio: ");
+                bitacora.WriteLine("Fecha: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToString("HH:mm:ss"));
+            }
+            else
+            {
+                throw new Exception("El archivo "+nombre+" no existe");
+            }
+        }
         //~Lexico()
         public void Dispose()
         {
             CerrarArchivos();
-            Console.WriteLine("Finaliza compilacion de Prueba.txt");
+            Console.WriteLine("Finaliza compilacion");
         }
         private void CerrarArchivos()
         {
             archivo.Close();
             bitacora.Close();
         }
-        public void NextToken()
+        protected void NextToken()
         {
             int estado = 0;
             char c;
@@ -270,7 +288,7 @@ namespace Sintaxis1
                     break;
             }
         }
-        public string Error(string palabra)
+        protected string Error(string palabra)
         {
             string mensaje = "";
             if (palabra.EndsWith("."))

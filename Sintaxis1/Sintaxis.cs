@@ -10,9 +10,15 @@ namespace Sintaxis1
     {
         public Sintaxis()
         {
+            Console.WriteLine("Inicia analisis sintactico");
             NextToken();
         }
-        public void match(string espera)
+        public Sintaxis(string nombre) : base(nombre)
+        {
+            Console.WriteLine("Inicia analisis sintactico");
+            NextToken();
+        }
+        protected void match(string espera)
         {
             if (espera == getContenido())
             {
@@ -23,7 +29,7 @@ namespace Sintaxis1
                 throw new Exception("Error de Sintaxis: Se espera un " + espera);
             }
         }
-        public void match(Clasificaciones espera)
+        protected void match(Clasificaciones espera)
         {
             if (espera == getClasificacion())
             {
