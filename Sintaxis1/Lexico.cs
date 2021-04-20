@@ -60,13 +60,15 @@ namespace Sintaxis1
             Console.WriteLine("Compilando el archivo Prueba.txt...");
             if (File.Exists("C:\\Archivos\\Prueba.txt"))
             {
+                //string fecha = 
+                //string hora = ;
                 linea = caracter = 1;
                 archivo = new StreamReader("C:\\Archivos\\Prueba.txt");
                 bitacora = new StreamWriter("C:\\Archivos\\Prueba.log");
                 bitacora.AutoFlush = true;
                 bitacora.WriteLine("Archivo: Prueba.txt");
                 bitacora.WriteLine("Directorio: C:\\Archivos");
-                bitacora.WriteLine("Fecha: 19/04/2021 15:52");
+                bitacora.WriteLine("Fecha: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToString("HH:mm:ss"));
             }
             else
             {

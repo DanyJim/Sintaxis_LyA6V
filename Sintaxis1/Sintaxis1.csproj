@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29DCB4C9-4F1D-4C60-B238-B6210460E6F9}</ProjectGuid>
+    <ProjectGuid>{531838CB-6B3D-4988-96A9-7BA25B4C9FBA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Sintaxis1</RootNamespace>
     <AssemblyName>Sintaxis1</AssemblyName>
@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lenguage.cs" />
     <Compile Include="Lexico.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Sintaxis1
 {
-    //Requerimiento 1: Agregar en el archivo log la fecha y la hora
     class Sintaxis:Lexico
     {
         public Sintaxis()
@@ -21,7 +20,7 @@ namespace Sintaxis1
             }
             else
             {
-                throw new Exception("Error de Sintaxis: Se espera un "+espera);
+                throw new Exception("Error de Sintaxis: Se espera un " + espera);
             }
         }
         public void match(Clasificaciones espera)
