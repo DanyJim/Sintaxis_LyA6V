@@ -18,20 +18,29 @@ namespace Sintaxis1
         {
             Console.WriteLine("Inicia analisis gramatical");
         }
-        /*
-        Programa	-> 	Librerias Main
-        Librerias	->	#include<identificador.h>
-        Main		->	void main()
-                        {
-                            numero;
-                        }
-        */
+        //Programa	-> 	Librerias Main
         public void Programa()
         {
             Librerias();
             Main();
         }
-        private void Librerias()
+        //Librerias	->	#include<identificador.h> Librerias?
+        private void Librerias()//0 o más veces
+        {
+            if (getContenido() == "#")
+            {
+                match("#");
+                match("include");
+                match("<");
+                match(Token.Clasificaciones.Identificador);
+                match(".");
+                match("h");
+                match(">");
+            
+                Librerias();
+            }           
+        }
+        private void Librerias2()//1 o más veces 
         {
             match("#");
             match("include");
@@ -40,13 +49,56 @@ namespace Sintaxis1
             match(".");
             match("h");
             match(">");
-        }
-        private void Main()
-        {
+            if (getContenido() == "#")
+            {
+                Librerias();
+            }
 
         }
         /*
-        
+        Main		->	void main()
+                        {
+                            Variables?
+                            Identificador = numero;
+                        }
         */
+        private void Main()
+        {
+            match("void");
+            match("main");
+            match("(");
+            match(")");
+            match("{");
+            if (getClasificacion() == Clasificaciones.TipoDato)
+            {
+                Variables();
+            }
+            match(Clasificaciones.Identificador);
+            match("=");
+            match(Clasificaciones.Numero);
+            match(";");
+            match("}");
+        }
+        //Lista__IDs -> Identificador(, Lista_IDs)?
+        private void Lista_IDs()
+        {
+            match(Clasificaciones.Identificador);
+            if (getContenido()==",")
+            {
+                match(",");
+                Lista_IDs();
+            }
+        }
+        //Variables -> TipoDato Lista_IDs; Variables?
+        private void Variables()
+        {
+            match(Clasificaciones.TipoDato);
+            Lista_IDs();
+            match(";");
+            if (getClasificacion()==Clasificaciones.TipoDato)
+            {
+                Variables();
+            }
+        }
     }
 }
