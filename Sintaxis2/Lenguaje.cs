@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sintaxis1
+namespace Sintaxis2
 {
-    /*Requerimiento 1: Separar el nombre del archivo y el Path del archivo 
-                       con el objeto Path y ajustar el contructor Lexico(string)*/
-    /*Requerimiento 2: Validar que las extenciones a compilar en ambos constructores sea cpp
-                       y si no levantar una excepcion marcando que no se puede compilar ese programa*/
-    class Lenguaje :Sintaxis
+    class Lenguaje:Sintaxis
     {
         public Lenguaje()
         {
             Console.WriteLine("Inicia analisis gramatical");
         }
-        public Lenguaje(string nombre):base(nombre)
+        public Lenguaje(string nombre) : base(nombre)
         {
             Console.WriteLine("Inicia analisis gramatical");
         }
@@ -35,15 +31,15 @@ namespace Sintaxis1
                 match("include");
                 match("<");
                 match(Token.Clasificaciones.Identificador);
-                if (getContenido() == ".") 
+                if (getContenido() == ".")
                 {
                     match(".");
                     match("h");
                 }
                 match(">");
-            
+
                 Librerias();
-            }           
+            }
         }
         private void Librerias2()//1 o más veces 
         {
@@ -87,7 +83,7 @@ namespace Sintaxis1
         private void Lista_IDs()
         {
             match(Clasificaciones.Identificador);
-            if (getContenido()==",")
+            if (getContenido() == ",")
             {
                 match(",");
                 Lista_IDs();
@@ -99,7 +95,7 @@ namespace Sintaxis1
             match(Clasificaciones.TipoDato);
             Lista_IDs();
             match(";");
-            if (getClasificacion()==Clasificaciones.TipoDato)
+            if (getClasificacion() == Clasificaciones.TipoDato)
             {
                 Variables();
             }
@@ -146,7 +142,7 @@ namespace Sintaxis1
                 }
             }
             match(";");
-            if (getClasificacion()==Clasificaciones.Identificador)
+            if (getClasificacion() == Clasificaciones.Identificador)
             {
                 Instruccion();
             }
