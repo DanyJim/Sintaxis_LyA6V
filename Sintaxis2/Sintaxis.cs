@@ -20,6 +20,7 @@ namespace Sintaxis2
         }
         protected void match(string espera)
         {
+            Console.WriteLine(getContenido() + " = " + espera);
             if (espera == getContenido())
             {
                 NextToken();
@@ -31,6 +32,7 @@ namespace Sintaxis2
         }
         protected void match(Clasificaciones espera)
         {
+            Console.WriteLine(getContenido() + " = " + espera);
             if (espera == getClasificacion())
             {
                 NextToken();

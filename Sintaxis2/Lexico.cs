@@ -11,6 +11,9 @@ namespace Sintaxis2
                        con el objeto Path y ajustar el contructor Lexico(string)*/
     /*Requerimiento 2: Validar que las extenciones a compilar en ambos constructores sea cpp
                        y si no levantar una excepcion marcando que no se puede compilar ese programa*/
+    //Requerimiento 3: Mostrar linea y caracter en los errores sintacticos y grabarlos en el log
+    //Requerimiento 4: Agregar el token << y >> como flujo de salida o flujo de entrada
+                        //Nota: Modificar matriz de transiciones para reconocer cin y cout
     class Lexico :Token,IDisposable
     {
         StreamReader archivo;
@@ -142,6 +145,7 @@ namespace Sintaxis2
                     case "char":
                     case "int":
                     case "float":
+                    case "string":
                         setClasificacion(Clasificaciones.TipoDato);
                         break;
                     case "private":

@@ -12,7 +12,7 @@ namespace Sintaxis2
         {
             try
             {
-                using (Lenguaje l = new Lenguaje("C:\\Archivos\\Suma.txt"))
+                using (Lenguaje l = new Lenguaje("C:\\Archivos\\Suma.cpp"))
                 {
                     /*while (!l.FinArchivo())
                     {

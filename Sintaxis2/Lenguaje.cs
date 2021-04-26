@@ -41,28 +41,10 @@ namespace Sintaxis2
                 Librerias();
             }
         }
-        private void Librerias2()//1 o más veces 
-        {
-            match("#");
-            match("include");
-            match("<");
-            match(Token.Clasificaciones.Identificador);
-            if (getContenido() == ".")
-            {
-                match(".");
-                match("h");
-            }
-            match(">");
-            if (getContenido() == "#")
-            {
-                Librerias();
-            }
-
-        }
         /*
         Main		->	void main()
                         {
-                            Variables?
+                            Instrucciones
                         }
         */
         private void Main()
@@ -71,11 +53,16 @@ namespace Sintaxis2
             match("main");
             match("(");
             match(")");
+            Bloque_Instrucciones();
+        }
+        /*
+        Bloque_Instrucciones -> {
+                                    Intrucciones
+                                }
+        */
+        private void Bloque_Instrucciones()
+        {
             match("{");
-            if (getClasificacion() == Clasificaciones.TipoDato)
-            {
-                Variables();
-            }
             Instruccion();
             match("}");
         }
@@ -89,16 +76,12 @@ namespace Sintaxis2
                 Lista_IDs();
             }
         }
-        //Variables -> TipoDato Lista_IDs; Variables?
+        //Variables -> TipoDato Lista_IDs;
         private void Variables()
         {
             match(Clasificaciones.TipoDato);
             Lista_IDs();
             match(";");
-            if (getClasificacion() == Clasificaciones.TipoDato)
-            {
-                Variables();
-            }
         }
         /*
         Instruccion -> printf(numero | cadena | identificador) | Identificador = numero | cadena | identificador ; 
@@ -106,7 +89,15 @@ namespace Sintaxis2
         */
         private void Instruccion()
         {
-            if (getContenido() == "printf")
+            if (getContenido() == "const")
+            {
+                Constante();
+            }
+            else if (getClasificacion() == Clasificaciones.TipoDato)
+            {
+                Variables();
+            }
+            else if (getContenido() == "printf")
             {
                 match("printf");
                 match("(");
@@ -123,6 +114,7 @@ namespace Sintaxis2
                     match(Clasificaciones.Identificador);
                 }
                 match(")");
+                match(";");
             }
             else
             {
@@ -140,12 +132,29 @@ namespace Sintaxis2
                 {
                     match(Clasificaciones.Identificador);
                 }
+                match(";");
             }
-            match(";");
-            if (getClasificacion() == Clasificaciones.Identificador)
+            if (getClasificacion() != Clasificaciones.FinBloque)
             {
                 Instruccion();
             }
+        }
+        //Constante -> const TipoDato Identificador = Numero | Cadena
+        private void Constante()
+        {
+            match("const");
+            match(Clasificaciones.TipoDato);
+            match(Clasificaciones.Identificador);
+            match("=");
+            if (getClasificacion() == Clasificaciones.Numero)
+            {
+                match(Clasificaciones.Numero);
+            }
+            else
+            {
+                match(Clasificaciones.Cadena);
+            }
+            match(";");
         }
     }
 }

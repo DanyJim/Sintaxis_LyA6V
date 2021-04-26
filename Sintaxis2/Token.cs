@@ -13,7 +13,7 @@ namespace Sintaxis2
             Identificador, Numero, Asignacion, Inicializacion, FinSentencia,
             OperadorLogico, OperadorRelacional, OperadorTermino, OperadorFactor,
             IncrementoTermino, IncrementoFactor, Cadena, Ternario, Caracter,
-            TipoDato, Zona, Condicion, Ciclo, InicioBloque, FinBloque,
+            TipoDato, Zona, Condicion, Ciclo, InicioBloque, FinBloque, FlujoEntrada, FlujoSalida
         }
         private string Contenido;
         private Clasificaciones Clasificacion;
