@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sintaxis2
 {
-    class Lenguaje:Sintaxis
+    /*Requerimiento 1: Separar el nombre del archivo y el Path del archivo 
+                       con el objeto Path y ajustar el contructor Lexico(string)*/
+    /*Requerimiento 2: Validar que las extenciones a compilar en ambos constructores sea cpp
+                       y si no levantar una excepcion marcando que no se puede compilar ese programa*/
+                        //Primero validar si es cpp y luego si existe
+    //Requerimiento 3: Mostrar linea y caracter en los errores sintacticos y grabarlos en el log
+    //Requerimiento 4: Agregar el token << y >> como flujo de salida o flujo de entrada
+                        //Nota: Modificar matriz de transiciones para reconocer cin y cout
+    //Requerimiento 5: Implementar la instruccion if
+    class Lenguaje :Sintaxis
     {
         public Lenguaje()
         {
@@ -89,32 +98,26 @@ namespace Sintaxis2
         */
         private void Instruccion()
         {
-            if (getContenido() == "const")
+            if (getContenido() == "cout")
+            {
+                match("cout");
+                Flujo_Salida();
+                match(";");
+            }
+            else if (getContenido() == "cin")
+            {
+                match("cin");
+                match(">");//>>
+                match(Clasificaciones.Identificador);
+                match(";");
+            }
+            else if (getContenido() == "const")
             {
                 Constante();
             }
             else if (getClasificacion() == Clasificaciones.TipoDato)
             {
                 Variables();
-            }
-            else if (getContenido() == "printf")
-            {
-                match("printf");
-                match("(");
-                if (getClasificacion() == Clasificaciones.Numero)
-                {
-                    match(Clasificaciones.Numero);
-                }
-                else if (getClasificacion() == Clasificaciones.Cadena)
-                {
-                    match(Clasificaciones.Cadena);
-                }
-                else
-                {
-                    match(Clasificaciones.Identificador);
-                }
-                match(")");
-                match(";");
             }
             else
             {
@@ -156,5 +159,28 @@ namespace Sintaxis2
             }
             match(";");
         }
+        //Flujo_Salida -> << Identificador | Numero | Cadena Flujo_Salida?
+        private void Flujo_Salida()
+        {
+            match("<");//<<
+            if (getClasificacion() == Clasificaciones.Numero)
+            {
+                match(Clasificaciones.Numero);
+            }
+            else if (getClasificacion() == Clasificaciones.Cadena)
+            {
+                match(Clasificaciones.Cadena);
+            }
+            else
+            {
+                match(Clasificaciones.Identificador);
+            }
+            if (getContenido() == "<")//if(getClasificion()==Calsificaciones.FlujoSalida)
+            {
+                Flujo_Salida();
+            }
+        }
+        // If -> if(Condicion) Bloque_Instrucciones (else Bloque_Instrucciones)?
+        // Condicion -> Identificador OperadorRelacional Identificador
     }
 }
