@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sintaxis2
 {
-    /*Requerimiento 1: Separar el nombre del archivo y el Path del archivo 
-                       con el objeto Path y ajustar el contructor Lexico(string)*/
-    /*Requerimiento 2: Validar que las extenciones a compilar en ambos constructores sea cpp
-                       y si no levantar una excepcion marcando que no se puede compilar ese programa*/
-                        //Primero validar si es cpp y luego si existe
-    //Requerimiento 3: Mostrar linea y caracter en los errores sintacticos y grabarlos en el log
-    //Requerimiento 4: Agregar el token << y >> como flujo de salida o flujo de entrada
-                        //Nota: Modificar matriz de transiciones para reconocer cin y cout
-    //Requerimiento 5: Implementar la instruccion if
-    class Lenguaje :Sintaxis
+    // Requerimiento 1: Poder inicializar variables con una expresion matematica
+    // Requerimiento 2: La Condicion -> Expresion OperadorRelacional Expresion
+    // Requerimiento 3: Implementar la sintaxis del ciclo for
+    // Requerimeinto 4: Implementar la sintaxis del ciclo while
+    // Requerimiento 5: Implementar la sintaxis del ciclo do while
+    class Lenguaje : Sintaxis
     {
         public Lenguaje()
         {
@@ -58,7 +54,7 @@ namespace Sintaxis2
         */
         private void Main()
         {
-            match("void");
+            match(Clasificaciones.TipoDato);
             match("main");
             match("(");
             match(")");
@@ -79,6 +75,7 @@ namespace Sintaxis2
         private void Lista_IDs()
         {
             match(Clasificaciones.Identificador);
+            // Requerimiento 1
             if (getContenido() == ",")
             {
                 match(",");
@@ -107,9 +104,13 @@ namespace Sintaxis2
             else if (getContenido() == "cin")
             {
                 match("cin");
-                match(">");//>>
+                match(Clasificaciones.FlujoEntrada);//>>
                 match(Clasificaciones.Identificador);
                 match(";");
+            }
+            else if (getContenido() == "if")
+            {
+                If();
             }
             else if (getContenido() == "const")
             {
@@ -123,17 +124,13 @@ namespace Sintaxis2
             {
                 match(Clasificaciones.Identificador);
                 match("=");
-                if (getClasificacion() == Clasificaciones.Numero)
-                {
-                    match(Clasificaciones.Numero);
-                }
-                else if (getClasificacion() == Clasificaciones.Cadena)
+                if (getClasificacion() == Clasificaciones.Cadena)
                 {
                     match(Clasificaciones.Cadena);
                 }
                 else
                 {
-                    match(Clasificaciones.Identificador);
+                    Expresion();
                 }
                 match(";");
             }
@@ -162,7 +159,7 @@ namespace Sintaxis2
         //Flujo_Salida -> << Identificador | Numero | Cadena Flujo_Salida?
         private void Flujo_Salida()
         {
-            match("<");//<<
+            match(Clasificaciones.FlujoSalida);//<<
             if (getClasificacion() == Clasificaciones.Numero)
             {
                 match(Clasificaciones.Numero);
@@ -175,12 +172,84 @@ namespace Sintaxis2
             {
                 match(Clasificaciones.Identificador);
             }
-            if (getContenido() == "<")//if(getClasificion()==Calsificaciones.FlujoSalida)
+            if (getClasificacion() == Clasificaciones.FlujoSalida)//if(getClasificion()==Calsificaciones.FlujoSalida)
             {
                 Flujo_Salida();
             }
         }
         // If -> if(Condicion) Bloque_Instrucciones (else Bloque_Instrucciones)?
+        private void If()
+
+        {
+            match("if");
+            match("(");
+            Condicion();
+            match(")");
+            Bloque_Instrucciones();
+            if (getContenido() == "else")
+            {
+                match("else");
+                Bloque_Instrucciones();
+            }
+        }
         // Condicion -> Identificador OperadorRelacional Identificador
+        private void Condicion()
+        {
+            match(Clasificaciones.Identificador);
+            match(Clasificaciones.OperadorRelacional);
+            match(Clasificaciones.Identificador);
+        }
+        // x26 = (3+5)*8 - (10-4)/2
+        // Expresion -> Termino MasTermino
+        private void Expresion()
+        {
+            Termino();
+            MasTermino();
+        }
+        // MasTermino -> (OperadorTermino Termino)?
+        private void MasTermino()
+        {
+            if (getClasificacion() == Clasificaciones.OperadorTermino)
+            {
+                match(Clasificaciones.OperadorTermino);
+                Termino();
+            }
+        }
+        // Termino -> Factor PorFactor
+        private void Termino()
+        {
+            Factor();
+            PorFactor();
+        }
+        // PorFactor -> (OperadorFactor Factor)?
+        private void PorFactor()
+        {
+            if (getClasificacion() == Clasificaciones.OperadorFactor)
+            {
+                match(Clasificaciones.OperadorFactor);
+                Factor();
+            }
+        }
+        // Factor -> Identificador | Numero | (Expresion)
+        private void Factor()
+        {
+            if (getClasificacion() == Clasificaciones.Identificador)
+            {
+                match(Clasificaciones.Identificador);
+            }
+            else if (getClasificacion() == Clasificaciones.Numero)
+            {
+                match(Clasificaciones.Numero);
+            }
+            else
+            {
+                match("(");
+                Expresion();
+                match(")");
+            }
+        }
+        // For -> for(Identificador = Expresion; Condicion; Identificador IncrementoTermino) BloqueInstrucciones
+        // While -> while(Condicion) BloqueInstrucciones
+        // DoWhile -> do BloqueInstrucciones while(Condicion);
     }
 }
